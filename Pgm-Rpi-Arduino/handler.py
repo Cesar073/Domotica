@@ -1,7 +1,7 @@
 import serial
 import time
 
-dev = serial.Serial("/dev/ttyAMA0", 9600)
+dev = serial.Serial("/dev/ttyUSB0", 9600)
 cadena = "CGVT005T005"
 #dev.write(cadena.encode('ascii').rstrip())
 # print(f"cadena:{str(cadena.encode('ascii').rstrip())}")
