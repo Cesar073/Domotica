@@ -1,9 +1,21 @@
 import serial
 import time
 import threading
+import Rpi.GPIO as GPIO
+
+
+pin = 3
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(pin, GPIO.OUT)
+
 
 dev = serial.Serial("/dev/ttyUSB0", 9600)
 
+for i in range(100):
+    GPIO.output(pin, HIGH)
+    time.sleep(5)
+    GPIO.output(pin, LOW)
+    time.sleep(5)
 #dev.write(cadena.encode('ascii').rstrip())
 # print(f"cadena:{str(cadena.encode('ascii').rstrip())}")
 
@@ -25,6 +37,7 @@ def bucle_de_escritura():
             cadena = "CGVFT050F050"
             dev.write(cadena.encode('ascii'))
         else:
+            t2 = threading.Thread(name="hilo_2", target=bucle_de_lectura).start()
             print("Error de opción")
 
 
@@ -37,4 +50,3 @@ def bucle_de_lectura():
 
 
 t1 = threading.Thread(name="hilo_1", target=bucle_de_escritura).start()
-t2 = threading.Thread(name="hilo_2", target=bucle_de_lectura).start()
